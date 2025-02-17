@@ -2,6 +2,11 @@
 <html>
 <head>
     <title>Predict the route</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='constant.js') }}"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='functions.js') }}"></script>
 </head>
 <body>
     <h1>Predict the route</h1>
@@ -10,10 +15,11 @@
     <p style="color: red;">{{ error }}</p>
     {% endif %}
 
-    <form method="POST">
+    <div>
         <label for="page_name">Datetime:</label>
-        <input type="text" name="page_name" id="page_name">
-        <button type="submit">Predict</button>
-    </form>
+        <input type="text" name="txt_datetime" id="txt_datetime"/>
+        <button type="submit" onclick="begin_prediction();">Predict</button>
+    </div>
+
 </body>
 </html>

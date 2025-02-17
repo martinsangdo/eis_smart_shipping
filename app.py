@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from waitress import serve
 
 app = Flask(__name__)
@@ -18,10 +18,12 @@ def predict_page():
 
 @app.route('/post_predict', methods=['POST'])
 def process_predict():
-    return 'test'
+    data_from_js = request.form.get('txt_datetime')
+    print(data_from_js)
+    return {'result': 'OK'}
 
 if __name__ == '__main__':
-   #app.run()   #run development configs
-    serve(app, host="0.0.0.0", port=80)
+   app.run()   #run development configs -> remove this when releasing
+    #serve(app, host="0.0.0.0", port=80)
 
    #run the server: python .\app.py
