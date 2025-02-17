@@ -24,8 +24,8 @@ def process_predict():
     return get_n_predict(data_from_js)
 
 if __name__ == '__main__':
-    #app.run()   #run development configs -> remove this when releasing
-    serve(app, host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=8080)   #run development configs -> remove this when releasing
+    #serve(app, host="0.0.0.0", port=8080)
     #http_server = WSGIServer(('', 5000), app)
     #http_server.serve_forever()
 
