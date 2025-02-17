@@ -23,7 +23,7 @@ def process_predict():
     return {'result': 'OK'}
 
 if __name__ == '__main__':
-   app.run()   #run development configs -> remove this when releasing
-    #serve(app, host="0.0.0.0", port=80)
+   #app.run()   #run development configs -> remove this when releasing
+    serve(app, host="0.0.0.0", port=80)
 
    #run the server: python .\app.py
