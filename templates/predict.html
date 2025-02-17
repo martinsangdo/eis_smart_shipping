@@ -115,7 +115,10 @@
               </tr>
               <tr>
                 <td></td>
-                <td><input type="button" value="Predict" onclick="begin_prediction();"></td>
+                <td>
+                    <input type="button" value="Predict" onclick="begin_prediction();">
+                    <div id="txt_error" style="color:red;"></div>
+                </td>
               </tr>
               <tr class="bg_blue">
                 <td>Turbines route</td>
@@ -123,7 +126,7 @@
               </tr>
               <tr class="bg_blue">
                 <td>Estimated total fuel</td>
-                <td><span>1258.15</span></td>
+                <td><span id="txt_result_fuel"></span></td>
               </tr>
               <tr class="bg_blue">
                 <td>Estimated total time</td>

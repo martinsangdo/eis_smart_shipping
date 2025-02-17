@@ -83,7 +83,9 @@ function begin_prediction(){
         'from_n_current': $.trim($('#from_n_current').val()), 
         'from_time': cur_timestamp
     }
-
+    //clear data
+    $('#txt_error').text('');
+    $('#txt_result_fuel').text('');
     $.ajax({
         url: POST_GET_PREDICTION,  // URL of your Flask route
         type: 'POST',         // HTTP method (POST is common for sending data)
@@ -92,11 +94,13 @@ function begin_prediction(){
         success: function(response) {
             // Handle successful response from Flask
             console.log('Success:', response['predicted_fuel']);
+            $('#txt_result_fuel').text(response['predicted_fuel']);
             //$('#responseArea').html("Flask Response: " + response.message); // Display the message
         },
         error: function(error) {
             // Handle errors
             console.error('Error:', error);
+            $('#txt_error').text(error);
             //$('#responseArea').html("Error: " + error.responseJSON.error); // Display the error message
         }
     });
