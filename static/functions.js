@@ -41,7 +41,21 @@ $(document).ready(function() {
     // Set the initial values of the date and time pickers
     $("#datepicker").datepicker("setDate", now);
     $("#timepicker").timepicker("setTime", now);
+    //load turbines mapping into list
+    var $turbines_list = $('#turbines_list');
+    var index = 0;  //to select random turbines
+    for (var turbine_key in turbines_mapping){
+        var $li = $('<li></li>').clone();
+        if (index++ < 6){
+            $li.append($('<input type="checkbox" value="'+turbines_mapping[turbine_key]+'" name="cbo_turbines" checked/>'));
+        } else {
+            $li.append($('<input type="checkbox" value="'+turbines_mapping[turbine_key]+'" name="cbo_turbines"/>'));
+        }
+        
+        $li.append($('<span>'+turbine_key+'</span>'));
 
+        $turbines_list.append($li);
+    }
 });
 //
 function convert_datetime_2_sec(){
@@ -75,7 +89,22 @@ function validate_input(){
 function begin_prediction(){
     var cur_timestamp = convert_datetime_2_sec();
     //console.log(cur_timestamp);
+    //get list of turbines
+    var list_turbine_ids = [];
+    
+    $("input[name='cbo_turbines']").each(function() {
+        if (this.checked){
+            list_turbine_ids.push(parseInt(this.value));
+        }
+    });
+    if (list_turbine_ids.length < 3){
+        $('#txt_error').text('Please select more than 3 turbines');
+        return;
+    }
+    //console.log(list_turbine_ids);
+    //
     const body_data = {
+        'list_turbine_ids': list_turbine_ids.join(','),
         'from_wave_h': $.trim($('#from_wave_h').val()),
         'from_e_wind': $.trim($('#from_e_wind').val()), 
         'from_n_wind': $.trim($('#from_n_wind').val()), 
@@ -84,8 +113,9 @@ function begin_prediction(){
         'from_time': cur_timestamp
     }
     //clear data
-    $('#txt_error').text('');
+    $('#txt_error').text('Predicting ...');
     $('#txt_result_fuel').text('');
+    $('#txt_result_turbines').text('');
     $.ajax({
         url: POST_GET_PREDICTION,  // URL of your Flask route
         type: 'POST',         // HTTP method (POST is common for sending data)
@@ -93,15 +123,28 @@ function begin_prediction(){
         dataType: 'json',     // Expected data type from Flask (JSON)
         success: function(response) {
             // Handle successful response from Flask
-            console.log('Success:', response['predicted_fuel']);
-            $('#txt_result_fuel').text(response['predicted_fuel']);
-            //$('#responseArea').html("Flask Response: " + response.message); // Display the message
+            console.log('Success:', response);
+            $('#txt_result_fuel').text(response['predicted_fuel'].toFixed(3));
+            //show list of turbines
+            var shortest_path_result = response['shortest_path_result'];
+            var result_turbines = [];
+            for (var i in shortest_path_result){
+                //console.log(shortest_path_result[i]);
+                for (var turbine_name in turbines_mapping){
+                    if (parseInt(shortest_path_result[i]) == turbines_mapping[turbine_name]){
+                        result_turbines.push(turbine_name);
+                        break;
+                    }
+                }
+            }
+            $('#txt_result_turbines').html(result_turbines.join(' -> '));
+            //
+            $('#txt_error').text('');
         },
         error: function(error) {
             // Handle errors
             console.error('Error:', error);
             $('#txt_error').text(error);
-            //$('#responseArea').html("Error: " + error.responseJSON.error); // Display the error message
         }
     });
 }

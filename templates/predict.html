@@ -31,7 +31,7 @@
         tr.bg_blue {background-color: aquamarine;}
 
         #scrollable-container {
-            width: 300px; /* Adjust as needed */
+            width: 200px; /* Adjust as needed */
             height: 200px; /* Adjust as needed */
             overflow-y: scroll; /* Enable vertical scrolling */
             border: 1px solid #ccc; /* Optional border */
@@ -68,27 +68,8 @@
                 <td>Turbine list</td>
                 <td>
                     <div id="scrollable-container">
-                        <ul>
-                          <li><input type="checkbox" value="0" name="cbo_turbines"/> 1</li>
-                          <li><input type="checkbox" value="1" name="cbo_turbines" checked/> Item 2</li>
-                          <li>Item 3</li>
-                          <li>Item 4</li>
-                          <li>Item 5</li>
-                          <li>Item 6</li>
-                          <li>Item 7</li>
-                          <li>Item 8</li>
-                          <li>Item 9</li>
-                          <li>Item 10</li>
-                          <li>Item 11</li>
-                          <li>Item 12</li>
-                          <li>Item 13</li>
-                          <li>Item 14</li>
-                          <li>Item 15</li>
-                          <li>Item 16</li>
-                          <li>Item 17</li>
-                          <li>Item 18</li>
-                          <li>Item 19</li>
-                          <li>Item 20</li>
+                        <ul id="turbines_list">
+                          
                           </ul>
                       </div>
                 </td>
@@ -122,7 +103,7 @@
               </tr>
               <tr class="bg_blue">
                 <td>Turbines route</td>
-                <td></td>
+                <td><span id="txt_result_turbines"></span></td>
               </tr>
               <tr class="bg_blue">
                 <td>Estimated total fuel</td>

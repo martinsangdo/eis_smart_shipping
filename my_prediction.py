@@ -80,10 +80,10 @@ def get_n_predict(body_data):
     #
     loaded_model = joblib.load('random_forest_model_1.joblib')  # or pickle.load(open('random_forest_model.pkl', 'rb'))
     
-    points = [0, 2, 3, 5, 7]
+    list_turbine_ids = body_data['list_turbine_ids']
 
     #break down into pairs of turbines
-    pairs = list(itertools.combinations(points, 2))  # 2 specifies pairs
+    pairs = list(itertools.combinations(list_turbine_ids, 2))  # 2 specifies pairs
     print(pairs)
     pair_len = len(pairs)
     distances = {}   #key: pair, value: predicted fuel
@@ -102,7 +102,7 @@ def get_n_predict(body_data):
     #
     #print(distances)
     #
-    shortest_path_result, min_distance_result = shortest_path_starting_from_first(points, distances)
+    shortest_path_result, min_distance_result = shortest_path_starting_from_first(list_turbine_ids, distances)
     print("Shortest Path:", shortest_path_result)
     print("Total Fuel:", min_distance_result)
 
