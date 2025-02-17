@@ -17,7 +17,7 @@ function begin_prediction(){
         dataType: 'json',     // Expected data type from Flask (JSON)
         success: function(response) {
             // Handle successful response from Flask
-            console.log('Success:', response);
+            console.log('Success:', response['predicted_fuel']);
             //$('#responseArea').html("Flask Response: " + response.message); // Display the message
         },
         error: function(error) {

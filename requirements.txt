@@ -1,2 +1,8 @@
 flask
 waitress
+pandas
+datetime
+calendar
+time
+joblib
+itertools

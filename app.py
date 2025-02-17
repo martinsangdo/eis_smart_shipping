@@ -21,7 +21,8 @@ def predict_page():
 @app.route('/post_predict', methods=['POST'])
 def process_predict():
     data_from_js = request.form.get('txt_datetime')
-    return get_n_predict(data_from_js)
+    shortest_path_result, min_distance_result = get_n_predict(data_from_js)
+    return {'predicted_fuel': min_distance_result}
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080)   #run development configs -> remove this when releasing
