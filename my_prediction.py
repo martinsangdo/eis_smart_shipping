@@ -74,11 +74,13 @@ def shortest_path_starting_from_first(points, distances):
 
 
 # %%
-def get_n_predict(data_from_js):
+def get_n_predict(body_data):
+    print('receiving request data:')
+    print(body_data)
+    #
     loaded_model = joblib.load('random_forest_model_1.joblib')  # or pickle.load(open('random_forest_model.pkl', 'rb'))
     
     points = [0, 2, 3, 5, 7]
-    from_time = 1638781000
 
     #break down into pairs of turbines
     pairs = list(itertools.combinations(points, 2))  # 2 specifies pairs
@@ -89,12 +91,12 @@ def get_n_predict(data_from_js):
         predicted_value = loaded_model.predict(pd.DataFrame({
                     'from_turbine': [pairs[i][0]], 
                     'to_turbine': [pairs[i][1]], 
-                    'from_wave_h': [1.304],
-                    'from_e_wind': [0.95]	, 
-                    'from_n_wind': [8.94], 
-                    'from_e_current': [-0.065], 
-                    'from_n_current': [-0.305], 
-                    'from_time': [1638781000]
+                    'from_wave_h': [body_data['from_wave_h']],
+                    'from_e_wind': [body_data['from_e_wind']]	, 
+                    'from_n_wind': [body_data['from_n_wind']], 
+                    'from_e_current': [body_data['from_e_current']], 
+                    'from_n_current': [body_data['from_n_current']], 
+                    'from_time': [body_data['from_time']]
                 }))
         distances[pairs[i]] = predicted_value[0]
     #

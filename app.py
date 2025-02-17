@@ -19,8 +19,16 @@ def predict_page():
 
 @app.route('/post_predict', methods=['POST'])
 def process_predict():
+    body_data = {
+        'from_wave_h': request.form.get('from_wave_h'),
+        'from_e_wind': request.form.get('from_e_wind'), 
+        'from_n_wind': request.form.get('from_n_wind'), 
+        'from_e_current': request.form.get('from_e_current'), 
+        'from_n_current': request.form.get('from_n_current'), 
+        'from_time': request.form.get('from_time')
+    }
     data_from_js = request.form.get('txt_datetime')
-    shortest_path_result, min_distance_result = get_n_predict(data_from_js)
+    shortest_path_result, min_distance_result = get_n_predict(body_data)
     return {'predicted_fuel': min_distance_result}
 
 if __name__ == '__main__':
