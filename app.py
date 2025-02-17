@@ -1,6 +1,5 @@
 from wsgiref.simple_server import WSGIServer
 from flask import Flask, render_template, request
-from waitress import serve
 from my_prediction import *
 
 app = Flask(__name__)
