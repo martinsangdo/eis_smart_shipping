@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from waitress import serve
 
 app = Flask(__name__)
 
@@ -20,6 +21,7 @@ def process_predict():
     return 'test'
 
 if __name__ == '__main__':
-   app.run()
+   #app.run()   #run development configs
+    serve(app, host="0.0.0.0", port=80)
 
    #run the server: python .\app.py
